@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adithya | AI & CS Student Portfolio</title>
+  <meta name="description" content="Portfolio of an aspiring AI Engineer and Computer Science Student featuring 3D interactive Three.js guide.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Three.js & GSAP via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 3D Three.js WebGL Canvas Background & Guide -->
+  <div id="canvas-container">
+    <canvas id="webgl-canvas"></canvas>
+  </div>
+
+  <!-- Ambient Glow Effects -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="glow-orb orb-3"></div>
+
+  <!-- Interactive 3D Guide HUD & Dialogue Box -->
+  <aside id="ai-guide-hud" class="guide-hud" aria-label="AI Student Companion Guide">
+    <div class="guide-card">
+      <div class="guide-header">
+        <div class="guide-avatar-badge">
+          <div class="pulse-ring"></div>
+          <span class="guide-emoji">🎓</span>
+        </div>
+        <div class="guide-meta">
+          <div class="guide-name">Aero &bull; AI Student Guide</div>
+          <div class="guide-status">
+            <span class="status-dot"></span> <span id="guide-status-text">Active & Explaining</span>
+          </div>
+        </div>
+        <div class="guide-controls">
+          <button id="tts-toggle-btn" class="icon-btn" title="Toggle Voice Narration (Speech Synthesis)" aria-label="Toggle Voice">
+            <i data-lucide="volume-2" id="tts-icon"></i>
+          </button>
+          <button id="guide-minimize-btn" class="icon-btn" title="Minimize Guide" aria-label="Minimize Guide">
+            <i data-lucide="chevron-down" id="minimize-icon"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="guide-body">
+        <p id="guide-speech-text" class="guide-speech">
+          "Hello! 👋 I'm your 3D Student Guide. Scroll down and I'll walk you through Adithya's AI portfolio, skills, and projects!"
+        </p>
+      </div>
+
+      <div class="guide-footer">
+        <span class="guide-tag" id="current-section-badge">Section: Overview</span>
+        <div class="guide-nav-buttons">
+          <button id="prev-section-btn" class="mini-nav-btn" title="Previous section">&larr;</button>
+          <button id="next-section-btn" class="mini-nav-btn" title="Next section">&rarr;</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <nav class="navbar container">
+      <a href="#hero" class="brand-logo">
+        <span class="brand-bracket">&lt;</span><span class="brand-name">Adithya</span><span class="brand-dot">.AI</span><span class="brand-bracket"> /&gt;</span>
+      </a>
+
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="#hero" class="nav-link active"><i data-lucide="home"></i> Home</a></li>
+        <li><a href="#about" class="nav-link"><i data-lucide="user"></i> About</a></li>
+        <li><a href="#skills" class="nav-link"><i data-lucide="cpu"></i> Skills</a></li>
+        <li><a href="#projects" class="nav-link"><i data-lucide="folder-git-2"></i> Projects</a></li>
+        <li><a href="#experience" class="nav-link"><i data-lucide="award"></i> Timeline</a></li>
+        <li><a href="#contact" class="nav-link"><i data-lucide="send"></i> Contact</a></li>
+      </ul>
+
+      <div class="header-actions">
+        <a href="#contact" class="btn btn-primary btn-sm glow-btn">
+          <span>Let's Talk</span>
+          <i data-lucide="sparkles"></i>
+        </a>
+        <button class="hamburger-btn" id="mobile-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content Structure -->
+  <main>
+
+    <!-- 1. Hero Section -->
+    <section id="hero" class="section hero-section">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <div class="badge-pill hero-badge">
+            <span class="badge-dot"></span>
+            <span>B.Tech / CS &amp; AI Undergraduate</span>
+          </div>
+          
+          <h1 class="hero-title">
+            Exploring the Boundaries of <br>
+            <span class="gradient-text text-glow">Artificial Intelligence</span> &amp; Code.
+          </h1>
+          
+          <p class="hero-subtitle">
+            Hi! I am <strong class="highlight">Adithya</strong>. An enthusiastic computer science student and machine learning developer building intelligent applications, neural models, and interactive WebGL experiences.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#projects" class="btn btn-primary glow-btn">
+              <i data-lucide="rocket"></i>
+              <span>View Projects</span>
+            </a>
+            <a href="#about" class="btn btn-outline">
+              <i data-lucide="bot"></i>
+              <span>Meet My 3D Avatar</span>
+            </a>
+            <a href="#contact" class="btn btn-glass">
+              <i data-lucide="mail"></i>
+              <span>Contact Me</span>
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-card">
+              <div class="stat-number" data-count="15">15+</div>
+              <div class="stat-label">AI &amp; Web Projects</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">3.9/4.0</div>
+              <div class="stat-label">Academic GPA</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" data-count="4">4+</div>
+              <div class="stat-label">Hackathons &amp; Awards</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" data-count="500">500+</div>
+              <div class="stat-label">Git Commits</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-3d-hint">
+          <div class="scroll-indicator">
+            <span class="mouse-icon">
+              <span class="wheel"></span>
+            </span>
+            <span class="scroll-text">Scroll down to see the 3D Guide in action</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 2. About Me Section -->
+    <section id="about" class="section about-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i data-lucide="user-check"></i> Biography</span>
+          <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+          <p class="section-subtitle">A curious student on a mission to build ethical, robust, and impactful AI technologies.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card glass-panel">
+            <div class="card-icon-header">
+              <i data-lucide="graduation-cap" class="card-icon"></i>
+              <h3>Academic Journey</h3>
+            </div>
+            <p>
+              Currently pursuing a Bachelor of Technology in <strong>Computer Science &amp; Engineering</strong> with a specialization in <strong>Artificial Intelligence &amp; Machine Learning</strong>. Passionate about algorithms, statistical modeling, and full-stack software development.
+            </p>
+            <ul class="check-list">
+              <li><i data-lucide="check-circle-2"></i> Strong foundations in Data Structures &amp; Algorithms</li>
+              <li><i data-lucide="check-circle-2"></i> Deep Learning, Computer Vision &amp; NLP coursework</li>
+              <li><i data-lucide="check-circle-2"></i> Active open-source contributor and technical mentor</li>
+            </ul>
+          </div>
+
+          <div class="about-card glass-panel">
+            <div class="card-icon-header">
+              <i data-lucide="sparkles" class="card-icon"></i>
+              <h3>Research &amp; Core Interests</h3>
+            </div>
+            <p>
+              I love turning mathematical formulations into working models. My focus areas include:
+            </p>
+            <div class="tag-cloud">
+              <span class="tech-tag">Large Language Models (LLMs)</span>
+              <span class="tech-tag">Retrieval-Augmented Generation (RAG)</span>
+              <span class="tech-tag">Computer Vision &amp; YOLO</span>
+              <span class="tech-tag">Autonomous Robotics</span>
+              <span class="tech-tag">3D WebGL &amp; Three.js</span>
+              <span class="tech-tag">Full-Stack Cloud Architectures</span>
+            </div>
+          </div>
+
+          <div class="about-card glass-panel highlight-border">
+            <div class="card-icon-header">
+              <i data-lucide="lightbulb" class="card-icon"></i>
+              <h3>Student Philosophy</h3>
+            </div>
+            <blockquote class="student-quote">
+              "The best way to understand an intelligent algorithm is to build it from scratch, test its edges, and apply it to solve real-world human problems."
+            </blockquote>
+            <div class="quick-facts">
+              <div class="fact-item">
+                <i data-lucide="map-pin"></i> <span>Based in: India</span>
+              </div>
+              <div class="fact-item">
+                <i data-lucide="calendar"></i> <span>Expected Graduation: 2027</span>
+              </div>
+              <div class="fact-item">
+                <i data-lucide="briefcase"></i> <span>Open to: AI Internships &amp; Collabs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 3. Skills Matrix Section -->
+    <section id="skills" class="section skills-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i data-lucide="cpu"></i> Capabilities</span>
+          <h2 class="section-title">Technical <span class="gradient-text">Skills</span></h2>
+          <p class="section-subtitle">The tools, libraries, and frameworks I leverage to design intelligent systems.</p>
+        </div>
+
+        <div class="skills-grid">
+          
+          <!-- Category 1: AI & Machine Learning -->
+          <div class="skill-category-card glass-panel">
+            <div class="category-header">
+              <div class="category-icon-box ai-icon">
+                <i data-lucide="brain-circuit"></i>
+              </div>
+              <div>
+                <h3>AI &amp; Deep Learning</h3>
+                <span class="category-sub">Neural architectures &amp; data pipelines</span>
+              </div>
+            </div>
+            <div class="skill-chips">
+              <div class="skill-chip"><span class="chip-dot"></span> PyTorch</div>
+              <div class="skill-chip"><span class="chip-dot"></span> TensorFlow / Keras</div>
+              <div class="skill-chip"><span class="chip-dot"></span> Scikit-Learn</div>
+              <div class="skill-chip"><span class="chip-dot"></span> Hugging Face Transformers</div>
+              <div class="skill-chip"><span class="chip-dot"></span> OpenCV &amp; YOLOv8</div>
+              <div class="skill-chip"><span class="chip-dot"></span> LangChain &amp; LlamaIndex</div>
+              <div class="skill-chip"><span class="chip-dot"></span> NumPy &amp; Pandas</div>
+            </div>
+          </div>
+
+          <!-- Category 2: Languages -->
+          <div class="skill-category-card glass-panel">
+            <div class="category-header">
+              <div class="category-icon-box lang-icon">
+                <i data-lucide="code-2"></i>
+              </div>
+              <div>
+                <h3>Programming Languages</h3>
+                <span class="category-sub">Core logic &amp; algorithms</span>
+              </div>
+            </div>
+            <div class="skill-chips">
+              <div class="skill-chip"><span class="chip-dot"></span> Python (Primary)</div>
+              <div class="skill-chip"><span class="chip-dot"></span> C++ / C</div>
+              <div class="skill-chip"><span class="chip-dot"></span> JavaScript (ES6+)</div>
+              <div class="skill-chip"><span class="chip-dot"></span> TypeScript</div>
+              <div class="skill-chip"><span class="chip-dot"></span> SQL (PostgreSQL/MySQL)</div>
+              <div class="skill-chip"><span class="chip-dot"></span> HTML5 &amp; CSS3</div>
+            </div>
+          </div>
+
+          <!-- Category 3: Web & Interactive 3D -->
+          <div class="skill-category-card glass-panel">
+            <div class="category-header">
+              <div class="category-icon-box web-icon">
+                <i data-lucide="layers"></i>
+              </div>
+              <div>
+                <h3>Web &amp; 3D Graphics</h3>
+                <span class="category-sub">Modern frontend &amp; full stack</span>
+              </div>
+            </div>
+            <div class="skill-chips">
+              <div class="skill-chip"><span class="chip-dot"></span> Three.js &amp; WebGL</div>
+              <div class="skill-chip"><span class="chip-dot"></span> React.js</div>
+              <div class="skill-chip"><span class="chip-dot"></span> Node.js &amp; Express</div>
+              <div class="skill-chip"><span class="chip-dot"></span> FastAPI (Python)</div>
+              <div class="skill-chip"><span class="chip-dot"></span> GSAP Animations</div>
+              <div class="skill-chip"><span class="chip-dot"></span> Tailwind CSS</div>
+            </div>
+          </div>
+
+          <!-- Category 4: Tools & DevOps -->
+          <div class="skill-category-card glass-panel">
+            <div class="category-header">
+              <div class="category-icon-box tools-icon">
+                <i data-lucide="terminal"></i>
+              </div>
+              <div>
+                <h3>Dev Tools &amp; Cloud</h3>
+                <span class="category-sub">Workflow, tracking &amp; deployment</span>
+              </div>
+            </div>
+            <div class="skill-chips">
+              <div class="skill-chip"><span class="chip-dot"></span> Git &amp; GitHub</div>
+              <div class="skill-chip"><span class="chip-dot"></span> Docker</div>
+              <div class="skill-chip"><span class="chip-dot"></span> Google Cloud Platform</div>
+              <div class="skill-chip"><span class="chip-dot"></span> Weights &amp; Biases (W&amp;B)</div>
+              <div class="skill-chip"><span class="chip-dot"></span> Linux / Bash</div>
+              <div class="skill-chip"><span class="chip-dot"></span> Jupyter &amp; Colab</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 4. Featured Projects Section -->
+    <section id="projects" class="section projects-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i data-lucide="folder-git-2"></i> Showcase</span>
+          <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+          <p class="section-subtitle">Real-world AI systems, research experiments, and web applications built from scratch.</p>
+        </div>
+
+        <div class="projects-grid">
+          
+          <!-- Project 1 -->
+          <article class="project-card glass-panel">
+            <div class="project-glow"></div>
+            <div class="project-badge-tag">Deep Learning</div>
+            <div class="project-content">
+              <div class="project-icon-title">
+                <div class="p-icon"><i data-lucide="eye"></i></div>
+                <h3>NeuroVision: Real-Time Object &amp; Gesture AI</h3>
+              </div>
+              <p class="project-desc">
+                An ultra-fast edge-computing computer vision pipeline utilizing YOLOv8 and PyTorch to perform multi-person pose estimation, hand-gesture recognition, and real-time obstacle tracking.
+              </p>
+              <div class="project-tech-stack">
+                <span>PyTorch</span>
+                <span>YOLOv8</span>
+                <span>OpenCV</span>
+                <span>FastAPI</span>
+                <span>Python</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com" target="_blank" rel="noreferrer" class="btn-project-link">
+                  <i data-lucide="github"></i> Source Code
+                </a>
+                <a href="#contact" class="btn-project-link primary">
+                  <i data-lucide="external-link"></i> Live Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card glass-panel">
+            <div class="project-glow"></div>
+            <div class="project-badge-tag">NLP &amp; LLM</div>
+            <div class="project-content">
+              <div class="project-icon-title">
+                <div class="p-icon"><i data-lucide="book-open-check"></i></div>
+                <h3>ScholarGPT: AI Research Synthesizer</h3>
+              </div>
+              <p class="project-desc">
+                A Retrieval-Augmented Generation (RAG) system with hybrid vector search (ChromaDB + BM25) enabling students and researchers to query hundreds of PDF papers with accurate citations.
+              </p>
+              <div class="project-tech-stack">
+                <span>LangChain</span>
+                <span>OpenAI / Claude</span>
+                <span>ChromaDB</span>
+                <span>Streamlit</span>
+                <span>Python</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com" target="_blank" rel="noreferrer" class="btn-project-link">
+                  <i data-lucide="github"></i> Source Code
+                </a>
+                <a href="#contact" class="btn-project-link primary">
+                  <i data-lucide="external-link"></i> Live Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card glass-panel">
+            <div class="project-glow"></div>
+            <div class="project-badge-tag">Robotics &amp; AI</div>
+            <div class="project-content">
+              <div class="project-icon-title">
+                <div class="p-icon"><i data-lucide="navigation"></i></div>
+                <h3>AutoDrive: Autonomous Vehicle Navigator</h3>
+              </div>
+              <p class="project-desc">
+                Simulated self-driving agent trained with Reinforcement Learning (Deep Q-Learning / PPO) to master complex curved tracks, avoid dynamic road obstacles, and optimize fuel efficiency.
+              </p>
+              <div class="project-tech-stack">
+                <span>Reinforcement Learning</span>
+                <span>PyTorch</span>
+                <span>Gymnasium</span>
+                <span>Three.js Visualizer</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com" target="_blank" rel="noreferrer" class="btn-project-link">
+                  <i data-lucide="github"></i> Source Code
+                </a>
+                <a href="#contact" class="btn-project-link primary">
+                  <i data-lucide="external-link"></i> Live Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project-card glass-panel">
+            <div class="project-glow"></div>
+            <div class="project-badge-tag">Healthcare AI</div>
+            <div class="project-content">
+              <div class="project-icon-title">
+                <div class="p-icon"><i data-lucide="activity"></i></div>
+                <h3>MedScan: Anomaly Detection CNN</h3>
+              </div>
+              <p class="project-desc">
+                Convolutional neural network architecture fine-tuned with Grad-CAM heatmaps for interpretable classification of lung ailments and pneumonia from chest X-Ray scans with 96.4% test accuracy.
+              </p>
+              <div class="project-tech-stack">
+                <span>TensorFlow</span>
+                <span>ResNet50</span>
+                <span>Grad-CAM</span>
+                <span>Flask API</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com" target="_blank" rel="noreferrer" class="btn-project-link">
+                  <i data-lucide="github"></i> Source Code
+                </a>
+                <a href="#contact" class="btn-project-link primary">
+                  <i data-lucide="external-link"></i> Live Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 5 -->
+          <article class="project-card glass-panel">
+            <div class="project-glow"></div>
+            <div class="project-badge-tag">Interactive 3D Web</div>
+            <div class="project-content">
+              <div class="project-icon-title">
+                <div class="p-icon"><i data-lucide="box"></i></div>
+                <h3>NeuralMatrix: 3D Latent Space Visualizer</h3>
+              </div>
+              <p class="project-desc">
+                An interactive WebGL 3D dashboard displaying high-dimensional embeddings (t-SNE &amp; UMAP) in real-time with cluster animations, particle physics, and responsive camera controllers.
+              </p>
+              <div class="project-tech-stack">
+                <span>Three.js</span>
+                <span>WebGL Shaders</span>
+                <span>GSAP</span>
+                <span>Vanilla JS</span>
+                <span>HTML/CSS</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com" target="_blank" rel="noreferrer" class="btn-project-link">
+                  <i data-lucide="github"></i> Source Code
+                </a>
+                <a href="#contact" class="btn-project-link primary">
+                  <i data-lucide="external-link"></i> Live Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 6 -->
+          <article class="project-card glass-panel">
+            <div class="project-glow"></div>
+            <div class="project-badge-tag">Student Bot</div>
+            <div class="project-content">
+              <div class="project-icon-title">
+                <div class="p-icon"><i data-lucide="message-square-code"></i></div>
+                <h3>StudyBuddy AI: Intelligent Campus Assistant</h3>
+              </div>
+              <p class="project-desc">
+                Automated multi-turn conversational AI bot for university students that parses assignment rubrics, generates flashcards, and provides step-by-step code debugging tips.
+              </p>
+              <div class="project-tech-stack">
+                <span>Node.js</span>
+                <span>Discord API</span>
+                <span>OpenAI API</span>
+                <span>MongoDB</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com" target="_blank" rel="noreferrer" class="btn-project-link">
+                  <i data-lucide="github"></i> Source Code
+                </a>
+                <a href="#contact" class="btn-project-link primary">
+                  <i data-lucide="external-link"></i> Live Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 5. Experience & Timeline Section -->
+    <section id="experience" class="section experience-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i data-lucide="award"></i> Roadmap</span>
+          <h2 class="section-title">Education &amp; <span class="gradient-text">Experience</span></h2>
+          <p class="section-subtitle">My academic track, internships, hackathon victories, and milestones.</p>
+        </div>
+
+        <div class="timeline">
+          
+          <div class="timeline-item">
+            <div class="timeline-dot"><i data-lucide="briefcase"></i></div>
+            <div class="timeline-content glass-panel">
+              <span class="timeline-date">2024 &mdash; Present</span>
+              <h3>AI &amp; Machine Learning Intern</h3>
+              <h4>Tech Innovation Labs</h4>
+              <p>
+                Developing and benchmarking custom small language models (SLMs) for low-latency on-device processing. Improved inference throughput by 35% using quantization (GGUF/ONNX).
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"><i data-lucide="trophy"></i></div>
+            <div class="timeline-content glass-panel">
+              <span class="timeline-date">2024</span>
+              <h3>1st Place Winner &bull; HackAI National Hackathon</h3>
+              <h4>Organized by Tech University</h4>
+              <p>
+                Built an AI-powered real-time Sign Language &amp; Audio Translation system in 36 hours alongside a 4-person team, winning top prize out of 120+ teams.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"><i data-lucide="graduation-cap"></i></div>
+            <div class="timeline-content glass-panel">
+              <span class="timeline-date">2023 &mdash; 2027 (Expected)</span>
+              <h3>B.Tech in Computer Science &amp; Engineering</h3>
+              <h4>Specialization in Artificial Intelligence</h4>
+              <p>
+                Maintaining high academic distinction (CGPA 9.2/10). Active member of the Robotics Club and Machine Learning Student Chapter.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot"><i data-lucide="check-check"></i></div>
+            <div class="timeline-content glass-panel">
+              <span class="timeline-date">2023 &mdash; 2024</span>
+              <h3>Professional Certifications</h3>
+              <h4>DeepLearning.AI &bull; Google Cloud</h4>
+              <p>
+                Completed the Deep Learning Specialization (Andrew Ng), TensorFlow Developer Certificate, and Google Cloud Associate Cloud Engineer path.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 6. Contact Section -->
+    <section id="contact" class="section contact-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i data-lucide="mail"></i> Get In Touch</span>
+          <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+          <p class="section-subtitle">Have an internship opportunity, project collaboration, or question? Send me a message!</p>
+        </div>
+
+        <div class="contact-grid">
+          
+          <div class="contact-info-panel glass-panel">
+            <h3>Let's build something intelligent together!</h3>
+            <p>
+              I am actively looking for AI Engineering internships, undergraduate research collaborations, and open-source opportunities.
+            </p>
+
+            <div class="contact-details">
+              <div class="contact-detail-item">
+                <div class="detail-icon"><i data-lucide="mail"></i></div>
+                <div>
+                  <div class="detail-label">Email</div>
+                  <a href="mailto:adithya.student.ai@example.com" class="detail-val">adithya.student.ai@example.com</a>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="detail-icon"><i data-lucide="map-pin"></i></div>
+                <div>
+                  <div class="detail-label">Location</div>
+                  <span class="detail-val">Karnataka, India &bull; Open to Remote</span>
+                </div>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="detail-icon"><i data-lucide="sparkles"></i></div>
+                <div>
+                  <div class="detail-label">Availability</div>
+                  <span class="detail-val">Available for Summer / Fall Internships</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-links-box">
+              <h4>Social Profiles:</h4>
+              <div class="social-icons">
+                <a href="https://github.com" target="_blank" rel="noreferrer" class="social-icon" title="GitHub"><i data-lucide="github"></i></a>
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" class="social-icon" title="LinkedIn"><i data-lucide="linkedin"></i></a>
+                <a href="https://kaggle.com" target="_blank" rel="noreferrer" class="social-icon" title="Kaggle"><i data-lucide="terminal"></i></a>
+                <a href="https://twitter.com" target="_blank" rel="noreferrer" class="social-icon" title="Twitter / X"><i data-lucide="twitter"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-panel glass-panel">
+            <form id="portfolio-contact-form" class="contact-form">
+              <div class="form-group">
+                <label for="user-name">Your Name</label>
+                <div class="input-wrapper">
+                  <i data-lucide="user" class="input-icon"></i>
+                  <input type="text" id="user-name" name="name" placeholder="John Doe" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="user-email">Your Email Address</label>
+                <div class="input-wrapper">
+                  <i data-lucide="at-sign" class="input-icon"></i>
+                  <input type="email" id="user-email" name="email" placeholder="john@example.com" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="user-subject">Subject</label>
+                <div class="input-wrapper">
+                  <i data-lucide="bookmark" class="input-icon"></i>
+                  <input type="text" id="user-subject" name="subject" placeholder="Internship Opportunity / Project Inquiry" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="user-message">Your Message</label>
+                <div class="input-wrapper textarea-wrapper">
+                  <i data-lucide="message-square" class="input-icon textarea-icon"></i>
+                  <textarea id="user-message" name="message" rows="4" placeholder="Hi Adithya, I saw your portfolio and would like to discuss..." required></textarea>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary glow-btn submit-btn" id="submit-btn">
+                <span>Send Message</span>
+                <i data-lucide="send"></i>
+              </button>
+
+              <div id="form-feedback" class="form-feedback-msg"></div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <a href="#hero" class="brand-logo">
+          <span class="brand-bracket">&lt;</span><span class="brand-name">Adithya</span><span class="brand-dot">.AI</span><span class="brand-bracket"> /&gt;</span>
+        </a>
+        <p class="footer-tagline">Building the intelligent web, one neural network at a time.</p>
+      </div>
+
+      <div class="footer-copy">
+        <p>&copy; <span id="current-year">2026</span> Adithya. Built with HTML, CSS, Three.js &amp; GSAP.</p>
+      </div>
+
+      <div class="footer-back-to-top">
+        <a href="#hero" class="back-top-btn" title="Back to Top">
+          <i data-lucide="arrow-up"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="avatar3d.js"></script>
+  <script src="main.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
+</body>
+</html>
